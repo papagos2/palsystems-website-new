@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAL Systems — Engineering the Invisible</title>
+  <meta name="description" content="PAL Systems designs and builds intelligent infrastructure — adaptive systems, real-time data and automation that quietly run the modern world." />
+  <meta name="theme-color" content="#05060a" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <meta property="og:title" content="PAL Systems — Engineering the Invisible" />
+  <meta property="og:description" content="An independent systems studio building the adaptive infrastructure, real-time data and automation behind the best products." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/img/hero.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Grain + scanline overlay -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Custom cursor -->
+  <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+
+  <!-- Preloader -->
+  <div class="loader" id="loader">
+    <div class="loader__inner">
+      <div class="loader__mark">PAL<span>/</span>SYS</div>
+      <div class="loader__bar"><span></span></div>
+      <div class="loader__count"><span id="loaderCount">0</span><i>%</i></div>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <header class="nav" id="nav">
+    <a href="#top" class="nav__logo" data-cursor="PAL">
+      <span class="nav__logo-mark">◐</span>
+      <span class="nav__logo-text">PAL&nbsp;SYSTEMS</span>
+    </a>
+    <nav class="nav__links">
+      <a href="#work" class="nav__link"><span>Work</span></a>
+      <a href="#capabilities" class="nav__link"><span>Capabilities</span></a>
+      <a href="#approach" class="nav__link"><span>Approach</span></a>
+      <a href="#contact" class="nav__link"><span>Contact</span></a>
+    </nav>
+    <a href="#contact" class="nav__cta" data-magnetic data-cursor="Say hi">
+      <span>Start a project</span>
+    </a>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero__media">
+        <img src="assets/img/hero.jpg" alt="" class="hero__img" id="heroImg" />
+        <div class="hero__veil"></div>
+      </div>
+      <div class="hero__content">
+        <div class="hero__eyebrow reveal">
+          <span class="dot"></span> Independent systems studio — est. 2014
+        </div>
+        <h1 class="hero__title">
+          <span class="line"><span class="word">Engineering</span></span>
+          <span class="line"><span class="word">the</span> <em class="word">invisible</em></span>
+          <span class="line"><span class="word">systems</span> <span class="word">that</span></span>
+          <span class="line"><span class="word">run</span> <span class="word">the</span> <span class="word">world.</span></span>
+        </h1>
+        <div class="hero__foot">
+          <p class="hero__lede reveal">We build the adaptive infrastructure, real-time data platforms and automation that the best products are quietly made of.</p>
+          <a href="#work" class="hero__scroll" data-cursor="Explore">
+            <span class="hero__scroll-line"></span>
+            Scroll to enter
+          </a>
+        </div>
+      </div>
+      <div class="hero__index">
+        <span>N 40.6401° — E 22.9444°</span>
+        <span class="hero__clock" id="clock">--:--:--</span>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <section class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Infrastructure</span><span class="sep">◦</span>
+        <span>Real-time data</span><span class="sep">◦</span>
+        <span>Automation</span><span class="sep">◦</span>
+        <span>Platform engineering</span><span class="sep">◦</span>
+        <span>Machine intelligence</span><span class="sep">◦</span>
+        <span>Infrastructure</span><span class="sep">◦</span>
+        <span>Real-time data</span><span class="sep">◦</span>
+        <span>Automation</span><span class="sep">◦</span>
+        <span>Platform engineering</span><span class="sep">◦</span>
+        <span>Machine intelligence</span><span class="sep">◦</span>
+      </div>
+    </section>
+
+    <!-- INTRO / MANIFESTO -->
+    <section class="intro" id="approach">
+      <p class="intro__kicker reveal"><span>01</span> — Why PAL</p>
+      <h2 class="intro__statement">
+        <span class="reveal-word">We</span> <span class="reveal-word">treat</span> <span class="reveal-word">complexity</span>
+        <span class="reveal-word">as</span> <span class="reveal-word">a</span> <span class="reveal-word">design</span>
+        <span class="reveal-word">material.</span> <span class="reveal-word muted">Software,</span>
+        <span class="reveal-word muted">hardware</span> <span class="reveal-word muted">and</span>
+        <span class="reveal-word muted">data</span> <span class="reveal-word muted">composed</span>
+        <span class="reveal-word muted">into</span> <span class="reveal-word muted">systems</span>
+        <span class="reveal-word muted">that</span> <span class="reveal-word muted">feel</span>
+        <span class="reveal-word">effortless.</span>
+      </h2>
+      <div class="intro__meta">
+        <div class="reveal"><b>120+</b><span>Systems shipped</span></div>
+        <div class="reveal"><b>11</b><span>Countries deployed</span></div>
+        <div class="reveal"><b>99.99%</b><span>Uptime SLA</span></div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section class="work" id="work">
+      <div class="section-head">
+        <p class="section-head__kicker"><span>02</span> — Selected work</p>
+        <h2 class="section-head__title">Recent <em>builds</em></h2>
+      </div>
+
+      <div class="work__list">
+        <article class="proj" data-img="assets/img/work-1.jpg">
+          <span class="proj__no">01</span>
+          <h3 class="proj__name" data-cursor="View">Helios Grid</h3>
+          <p class="proj__tag">Energy · Real-time orchestration</p>
+          <span class="proj__year">2025</span>
+        </article>
+        <article class="proj" data-img="assets/img/hero-2.jpg">
+          <span class="proj__no">02</span>
+          <h3 class="proj__name" data-cursor="View">Northwind OS</h3>
+          <p class="proj__tag">Logistics · Autonomous routing</p>
+          <span class="proj__year">2024</span>
+        </article>
+        <article class="proj" data-img="assets/img/work-2.jpg">
+          <span class="proj__no">03</span>
+          <h3 class="proj__name" data-cursor="View">Atlas Vision</h3>
+          <p class="proj__tag">Industrial · Computer vision</p>
+          <span class="proj__year">2024</span>
+        </article>
+        <article class="proj" data-img="assets/img/work-1.jpg">
+          <span class="proj__no">04</span>
+          <h3 class="proj__name" data-cursor="View">Mercury Pay</h3>
+          <p class="proj__tag">Fintech · High-throughput ledger</p>
+          <span class="proj__year">2023</span>
+        </article>
+      </div>
+
+      <!-- floating hover preview -->
+      <div class="work__preview" id="workPreview"><img src="" alt="" /></div>
+    </section>
+
+    <!-- CAPABILITIES -->
+    <section class="caps" id="capabilities">
+      <div class="section-head">
+        <p class="section-head__kicker"><span>03</span> — What we do</p>
+        <h2 class="section-head__title">Capabilities</h2>
+      </div>
+      <div class="caps__grid">
+        <article class="cap reveal">
+          <span class="cap__no">01</span>
+          <h3>Systems architecture</h3>
+          <p>Resilient, observable platforms designed to scale from prototype to planetary load without rewrites.</p>
+          <ul><li>Distributed systems</li><li>Event-driven</li><li>Edge + cloud</li></ul>
+        </article>
+        <article class="cap reveal">
+          <span class="cap__no">02</span>
+          <h3>Real-time data</h3>
+          <p>Streaming pipelines and decision layers that turn raw signal into action in milliseconds.</p>
+          <ul><li>Stream processing</li><li>Time-series</li><li>Observability</li></ul>
+        </article>
+        <article class="cap reveal">
+          <span class="cap__no">03</span>
+          <h3>Applied intelligence</h3>
+          <p>Pragmatic machine learning embedded where it earns its keep — forecasting, vision, automation.</p>
+          <ul><li>Computer vision</li><li>Forecasting</li><li>LLM systems</li></ul>
+        </article>
+        <article class="cap reveal">
+          <span class="cap__no">04</span>
+          <h3>Product engineering</h3>
+          <p>Interfaces and tooling that make powerful systems feel calm, fast and obvious to operate.</p>
+          <ul><li>Design systems</li><li>Web platforms</li><li>Control rooms</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- APPROACH / STEPS -->
+    <section class="steps">
+      <div class="section-head">
+        <p class="section-head__kicker"><span>04</span> — How we work</p>
+        <h2 class="section-head__title">From signal <em>to system</em></h2>
+      </div>
+      <div class="steps__row">
+        <div class="step reveal"><span>(01)</span><h3>Listen</h3><p>We embed, map the terrain and find the constraint that actually matters.</p></div>
+        <div class="step reveal"><span>(02)</span><h3>Model</h3><p>We prototype the core mechanism early — proving the hard part before the easy part.</p></div>
+        <div class="step reveal"><span>(03)</span><h3>Build</h3><p>Production-grade from day one. Tested, observable, documented, owned.</p></div>
+        <div class="step reveal"><span>(04)</span><h3>Sustain</h3><p>We stay. Systems are tended, not shipped and abandoned.</p></div>
+      </div>
+    </section>
+
+    <!-- CTA / CONTACT -->
+    <section class="cta" id="contact">
+      <div class="cta__bg" aria-hidden="true"><img src="assets/img/mesh.jpg" alt="" /></div>
+      <p class="cta__kicker reveal"><span>05</span> — Let's build</p>
+      <a href="mailto:hello@palsystems.io" class="cta__big" data-cursor="Email us" data-magnetic>
+        <span class="cta__line"><span>Have a system</span></span>
+        <span class="cta__line"><span>worth building?</span></span>
+      </a>
+      <div class="cta__row">
+        <a href="mailto:hello@palsystems.io" class="cta__mail" data-cursor="Copy">hello@palsystems.io</a>
+        <div class="cta__socials">
+          <a href="#" class="cta__social">LinkedIn ↗</a>
+          <a href="#" class="cta__social">GitHub ↗</a>
+          <a href="#" class="cta__social">Dribbble ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__top">
+      <span>PAL&nbsp;SYSTEMS©2026</span>
+      <span>Thessaloniki · Berlin · Remote</span>
+    </div>
+    <div class="footer__big" aria-hidden="true">PAL SYSTEMS</div>
+    <div class="footer__bottom">
+      <span>Engineering the invisible.</span>
+      <a href="#top" data-cursor="Up">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
