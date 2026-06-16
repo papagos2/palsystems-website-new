@@ -7,7 +7,7 @@ Read `docs/agent-architecture.md` for the full agent system.
 
 - **Next.js 15** (App Router, React Server Components by default)
 - **TypeScript** (strict)
-- **Tailwind CSS** (token-driven theme; no magic numbers)
+- **Tailwind CSS v4** (CSS-first `@theme`; token-driven; no magic numbers)
 - **Framer Motion** (all motion; reduced-motion fallback mandatory)
 - **GitHub** (PR workflow) → **Vercel** (preview per PR, prod human-gated)
 

@@ -168,10 +168,11 @@ redundancy without adding quality. Five + two is the floor for award-tier output
 - `CLAUDE.md` quality bars + conventions (done).
 - Architecture doc (this file).
 
-**Phase 1 — Project scaffold** (frontend-engineer, via studio-director)
-- `create-next-app` (App Router, TS, Tailwind), add Framer Motion, ESLint/
-  Prettier, strict tsconfig.
-- Wire design tokens into Tailwind theme.
+**Phase 1 — Project scaffold (DONE)** (frontend-engineer, via studio-director)
+- ✓ `create-next-app@15` (App Router, TS, src dir, ESLint, Tailwind v4),
+  Framer Motion added. Next 15.5.19 / React 19.
+- ✓ Self-check gate green: `tsc --noEmit`, `lint`, `next build`.
+- Next: wire design tokens into the Tailwind `@theme` once the DESIGN_SPEC lands.
 
 **Phase 2 — CI & quality gates**
 - GitHub Actions: typecheck, lint, `next build`, Lighthouse-CI with the budgets
