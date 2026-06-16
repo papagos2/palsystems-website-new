@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { cn } from "@/lib/cn";
 import type { ReactNode } from "react";
 
@@ -31,8 +32,20 @@ export function Button({
   size?: Size;
   className?: string;
 }) {
+  const classes = cn(base, variants[variant], sizes[size], className);
+
+  // Internal routes use next/link for client-side navigation; external links
+  // (mailto:, https:, tel:) fall back to a plain anchor.
+  if (href.startsWith("/")) {
+    return (
+      <Link href={href} className={classes}>
+        {children}
+      </Link>
+    );
+  }
+
   return (
-    <a href={href} className={cn(base, variants[variant], sizes[size], className)}>
+    <a href={href} className={classes}>
       {children}
     </a>
   );

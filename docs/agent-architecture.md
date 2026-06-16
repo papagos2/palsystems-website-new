@@ -194,8 +194,16 @@ redundancy without adding quality. Five + two is the floor for award-tier output
   h1, AA-contrast tokens, focus-visible ring, SSG content verified in HTML.
 - Pending: runtime Lighthouse/axe budget gate (runs in CI / Phase 3 preview).
 
-**Phase 5 — Scale**
-- Parallel section/page builds re-converging at the audit gate.
+**Phase 5 — Scale (IN PROGRESS)**
+- ✓ Shared UI primitives (Container, Button, Eyebrow, cn) + Process/Testimonial
+  sections (DRY refactor across all sections).
+- ✓ Global layout: SiteNav + SiteFooter promoted to `app/layout.tsx`; nav uses
+  `next/link` for client-side routing.
+- ✓ Accessible mobile nav menu (aria-expanded/controls, Escape-to-close, focus
+  management, scroll lock, reduced-motion-aware).
+- ✓ Second route `/platform` (hero + alternating feature deep-dives + CTA),
+  reusing the design system; both routes prerender static and pass the gate.
+- Next: parallel page builds re-converging at the audit gate.
 
 ---
 
