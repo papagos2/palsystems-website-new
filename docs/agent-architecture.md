@@ -174,9 +174,13 @@ redundancy without adding quality. Five + two is the floor for award-tier output
 - ✓ Self-check gate green: `tsc --noEmit`, `lint`, `next build`.
 - Next: wire design tokens into the Tailwind `@theme` once the DESIGN_SPEC lands.
 
-**Phase 2 — CI & quality gates**
-- GitHub Actions: typecheck, lint, `next build`, Lighthouse-CI with the budgets
-  in `CLAUDE.md`. (A SessionStart hook can pre-warm installs for web sessions.)
+**Phase 2 — CI & quality gates (DONE)**
+- ✓ `.github/workflows/ci.yml`: `quality` job (typecheck · lint · build) +
+  `lighthouse` job (Lighthouse-CI, mobile, against `CLAUDE.md` budgets).
+- ✓ `lighthouserc.json`: perf ≥ 0.95, a11y = 1, LCP < 2.5s, CLS < 0.1,
+  TBT < 200ms (INP lab proxy); 3 runs, median.
+- ✓ `.claude/settings.json` SessionStart hook pre-warms `pnpm install` for
+  web sessions.
 
 **Phase 3 — Vercel**
 - Link project; preview deploy per PR (release-engineer via Vercel MCP);
