@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { staggerContainer, staggerItem } from "@/components/motion/primitives";
+import { Container } from "@/components/ui/container";
 
 const stats = [
   { value: "99.99%", label: "Measured uptime" },
@@ -12,14 +13,15 @@ const stats = [
 
 export function Stats() {
   return (
-    <section id="stats" className="border-y border-line px-6 py-24 sm:py-32">
-      <motion.dl
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-15%" }}
-        className="mx-auto grid max-w-[72rem] gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4"
-      >
+    <section id="stats" className="border-y border-line py-24 sm:py-32">
+      <Container>
+        <motion.dl
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-15%" }}
+          className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4"
+        >
         {stats.map((s) => (
           <motion.div key={s.label} variants={staggerItem}>
             <dt className="text-5xl font-semibold tracking-tight text-paper">
@@ -30,7 +32,8 @@ export function Stats() {
             </dd>
           </motion.div>
         ))}
-      </motion.dl>
+        </motion.dl>
+      </Container>
     </section>
   );
 }

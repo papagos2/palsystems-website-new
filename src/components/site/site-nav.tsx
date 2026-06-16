@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/cn";
 
 const links = [
   { href: "#capabilities", label: "Platform" },
@@ -20,9 +22,10 @@ export function SiteNav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled ? "border-b border-line bg-ink/80 backdrop-blur-md" : "border-b border-transparent"
-      }`}
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300",
+        scrolled ? "border-line bg-ink/80 backdrop-blur-md" : "border-transparent",
+      )}
     >
       <nav className="mx-auto flex h-16 max-w-[72rem] items-center justify-between px-6">
         <a href="#top" className="font-mono text-sm font-semibold tracking-tight">
@@ -42,12 +45,9 @@ export function SiteNav() {
           ))}
         </ul>
 
-        <a
-          href="#contact"
-          className="rounded-full bg-signal px-4 py-2 text-sm font-medium text-signal-ink transition-opacity hover:opacity-90"
-        >
+        <Button href="#contact" size="sm">
           Book a demo
-        </a>
+        </Button>
       </nav>
     </header>
   );

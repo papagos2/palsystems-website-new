@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { easeExpo, staggerContainer, staggerItem } from "@/components/motion/primitives";
+import { Container } from "@/components/ui/container";
+import { Eyebrow } from "@/components/ui/eyebrow";
 import type { ReactNode } from "react";
 
 type Capability = {
@@ -45,8 +47,8 @@ const capabilities: Capability[] = [
 
 export function Capabilities() {
   return (
-    <section id="capabilities" className="px-6 py-24 sm:py-32">
-      <div className="mx-auto max-w-[72rem]">
+    <section id="capabilities" className="py-24 sm:py-32">
+      <Container>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -54,9 +56,7 @@ export function Capabilities() {
           transition={{ duration: 0.5, ease: easeExpo }}
           className="max-w-[40ch]"
         >
-          <p className="font-mono text-[0.8125rem] uppercase tracking-[0.1em] text-signal">
-            The platform
-          </p>
+          <Eyebrow accent>The platform</Eyebrow>
           <h2 className="mt-4 text-h2 font-semibold text-paper">
             One control plane for everything you run.
           </h2>
@@ -93,7 +93,7 @@ export function Capabilities() {
             </motion.li>
           ))}
         </motion.ul>
-      </div>
+      </Container>
     </section>
   );
 }

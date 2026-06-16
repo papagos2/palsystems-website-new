@@ -1,3 +1,5 @@
+import { Container } from "@/components/ui/container";
+
 const columns = [
   {
     heading: "Platform",
@@ -15,8 +17,8 @@ const columns = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-line px-6 py-16">
-      <div className="mx-auto grid max-w-[72rem] gap-12 md:grid-cols-[1.5fr_repeat(3,1fr)]">
+    <footer className="border-t border-line py-16">
+      <Container className="grid gap-12 md:grid-cols-[1.5fr_repeat(3,1fr)]">
         <div>
           <p className="font-mono text-sm font-semibold tracking-tight">
             PAL<span className="text-signal">·</span>SYSTEMS
@@ -45,12 +47,12 @@ export function SiteFooter() {
             </ul>
           </div>
         ))}
-      </div>
+      </Container>
 
-      <div className="mx-auto mt-12 flex max-w-[72rem] flex-col gap-2 border-t border-line pt-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+      <Container className="mt-12 flex flex-col gap-2 border-t border-line pt-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
         <p>© {new Date().getFullYear()} PAL Systems. All rights reserved.</p>
         <p className="font-mono text-[0.8125rem]">Built for scale.</p>
-      </div>
+      </Container>
     </footer>
   );
 }
