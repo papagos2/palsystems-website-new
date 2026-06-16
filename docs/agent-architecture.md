@@ -186,9 +186,13 @@ redundancy without adding quality. Five + two is the floor for award-tier output
 - Link project; preview deploy per PR (release-engineer via Vercel MCP);
   production gated on human approval.
 
-**Phase 4 — First build loop**
-- Run the full Design → Build → Audit → Release loop on the landing page as the
-  reference implementation; tune budgets and motion conventions from results.
+**Phase 4 — First build loop (IN PROGRESS)**
+- ✓ Design: `docs/design-spec-landing.md` (concept, tokens, layout, motion).
+- ✓ Build: landing page — nav, hero, logo bar, capabilities, stats, CTA, footer
+  with Framer Motion (stagger entrance, scroll reveal, reduced-motion guards).
+- ✓ Self-check + static audit: tsc/lint/build green; semantic landmarks, single
+  h1, AA-contrast tokens, focus-visible ring, SSG content verified in HTML.
+- Pending: runtime Lighthouse/axe budget gate (runs in CI / Phase 3 preview).
 
 **Phase 5 — Scale**
 - Parallel section/page builds re-converging at the audit gate.
