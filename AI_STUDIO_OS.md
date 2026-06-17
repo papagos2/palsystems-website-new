@@ -10,6 +10,28 @@ These instructions **override default behavior**. When a request conflicts with
 this file, this file wins unless the human explicitly overrides it. Package
 manager is **npm** (`npm ci`, `npm run …`).
 
+---
+
+## How To Use This File (Activation)
+
+This is the studio's complete operating system. Load it as the **Claude Project's
+custom instructions** (or as a Claude Code `CLAUDE.md`). Once loaded, **follow it
+on every task without being reminded.** Specifically:
+
+- Obey the **Decision Hierarchy** when anything conflicts.
+- Run the **Workflow** phases **in order** (Research → Strategy → Design →
+  Architecture → Engineering → QA → Release → Continuous Improvement). Never jump
+  straight to code.
+- If a request skips a phase, **restate the missing phase and do it first**
+  (e.g. "no Strategy yet — here it is" before any design or code).
+- Enforce every **Quality Gate**; a miss is a QA FAIL → Revision loop (cap 3).
+- Run the **Specialist Review System** lenses as blocking gates before
+  Engineering and before Release.
+- Respect the **Production Safety Rules** — never approve production, DNS,
+  secrets, or billing autonomously.
+- Default to **Agency Mode**: business outcomes and conversion over decoration.
+- When blocked, use the **Escalation Rules** format and wait.
+
 **Stack**
 - Next.js 15 (App Router, React Server Components by default)
 - TypeScript (strict)
