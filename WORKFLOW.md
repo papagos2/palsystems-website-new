@@ -1,148 +1,269 @@
-# WORKFLOW.md — Premium Web Studio Pipeline
+# WORKFLOW.md — Premium Web Studio Operating System
 
-## 1. Overview
+> The operating system for designing, building, and shipping high-end
+> **Next.js 15** websites with **TypeScript · Tailwind · Framer Motion**,
+> delivered via **GitHub → Vercel**, executed with **Claude Code** (and Cursor
+> for in-editor work). Reusable across client projects.
+>
+> **Team:** one human + Claude. The human owns taste, strategy sign-off, and the
+> production gate. Claude executes research, strategy drafts, tokens, code,
+> audits, and delivery — **inside the rules below**.
 
-This is the execution pipeline for a premium web design & development studio
-running on **Next.js + TypeScript + Tailwind + Framer Motion**, shipped through
-**GitHub → Vercel**. It takes a request from raw **brief → production** in
-defined stages, each with explicit inputs, outputs, and a pass/fail gate.
+---
 
-The team is **one human + Claude**. The human owns taste, intent, and the
-production sign-off; Claude executes design tokens, code, audits, and delivery.
-The pipeline exists to make output **repeatable and gated** — every stage
-produces a checkable artifact, nothing reaches production without passing
-budgets, and ambiguity stops the line instead of guessing. It is lean by
-design: no hand-offs to fictional roles, just sequential steps with loops.
+## 0. Operating Principles — Agency Mode
 
-## 2. Pipeline Stages
+Run every project like a **$10k–$50k studio engagement**, not a template job:
 
-### STEP 0 — Brief intake & decomposition
-- **Input:** human request (one line to a full brief).
-- **Work:** restate the goal, list pages/sections, identify the *one* ambiguity
-  that most changes the outcome (brand, audience, scope), and resolve it.
-- **Output:** a short scoped task list + locked assumptions.
-- **Decision point:** brief ambiguous on something that changes the build →
-  **ask the human once** before proceeding. Otherwise continue with stated
-  defaults.
+- **Business outcomes over visuals** — beauty that doesn't convert is failure.
+- **Conversion over decoration** — every section earns its place or is cut.
+- **Clarity over complexity** — the visitor never has to think about the UI.
+- **Maintainability over cleverness** — the next dev (or Claude) must understand
+  it in 30 seconds.
+- **Proof over claims** — assertions ship with evidence.
 
-### Design — Token system + spec
-- **Input:** scoped brief.
-- **Work:** define the design language — color/type/spacing tokens, layout grid,
-  and the motion spec (timings, easing, reduced-motion behavior). Write it down.
+### Think → Research → Plan → Build (never skip)
+Claude **never jumps straight to code.** Mandatory cognitive order on every task:
+
+1. **Think** — restate the goal, surface assumptions and risks.
+2. **Research** — read the codebase, the brief, competitors, prior art.
+3. **Plan** — write the approach and the checkable outputs (use `/run`/Plan
+   tooling for non-trivial work).
+4. **Build** — only now, against an approved plan.
+
+### Mandatory pipeline sequence
+```
+Research → Strategy → Design → Architecture → Build → QA → Release
+```
+Each stage produces an artifact and a pass/fail gate. A stage may not start
+until the previous stage's gate is green or its ambiguity is human-resolved.
+
+---
+
+## 1. Pipeline Stages
+
+### RESEARCH — Brief intake & decomposition  *(STEP 0)*
+- **Input:** the human request (one line → full brief).
+- **Work:** restate the goal; decompose into pages/sections; inventory existing
+  assets, constraints, and unknowns; identify the single ambiguity that most
+  changes the outcome and resolve it.
+- **Output:** scoped task list + locked assumptions + open questions.
+- **Gate / decision:** ambiguity that changes the build with no safe default →
+  **ask the human once**, then proceed.
+
+### STRATEGY — Business & conversion foundation
+- **Input:** scoped brief + research.
+- **Work:** complete **`STRATEGY.md`** — business analysis, competitor analysis,
+  ICP, positioning, offer analysis, conversion goals, user journey, content
+  hierarchy, website objectives.
+- **Output:** human-approved `STRATEGY.md`.
+- **Gate:** **Strategy is human-signed before Design.** No strategy → no design.
+
+### DESIGN — Token system + spec
+- **Input:** approved `STRATEGY.md`.
+- **Work:** define the design language driven by strategy — color/type/spacing
+  tokens, layout grid, component inventory, and the **motion spec** (timings,
+  easing, reduced-motion behavior). Map every section from the content hierarchy
+  to a layout.
 - **Output:** `DESIGN_SPEC.md` + token values (Tailwind `@theme` / CSS vars).
-- **Decision point:** no clear visual direction or two equally valid directions
-  → present options to the human; don't build on a guess.
 
-### Engineering — Build with Next.js
-- **Input:** `DESIGN_SPEC.md` + tokens.
-- **Work:** implement against the spec. Server Components by default;
-  `"use client"` only for interactivity/motion. Tokens drive Tailwind — no magic
-  numbers. Every motion effect ships a `prefers-reduced-motion` fallback.
+#### ▶ Pre-Engineering Specialist Review (mandatory, blocking)
+Before any code, Claude runs four review lenses over Strategy + Design and
+records findings + resolutions. FAIL on any lens returns to Strategy/Design:
+
+| Lens | Reviews for | Blocks build if… |
+|------|-------------|------------------|
+| **Brand Strategist** | Positioning consistency, voice, differentiation, message hierarchy | Design contradicts positioning or voice |
+| **UX Architect** | Information architecture, user journey, flow, friction, cognitive load | Journey has dead ends or hidden primary action |
+| **CRO Specialist** | CTA clarity/placement, offer framing, proof, objection handling, form friction | Primary conversion path is weak or buried |
+| **SEO Specialist** | Keyword/intent mapping, content depth, URL/heading structure, metadata plan | Pages lack intent match or crawlable structure |
+
+### ARCHITECTURE — Technical plan
+- **Input:** `DESIGN_SPEC.md` + token values.
+- **Work:** define route structure (App Router), Server vs Client component
+  boundaries, data sources, rendering strategy (SSG/ISR/SSR), shared primitives,
+  and the metadata/structured-data plan. Decide before building.
+- **Output:** a short architecture note (routes, components, data, rendering).
+
+### BUILD — Engineering with Next.js 15
+- **Input:** approved architecture + spec + tokens.
+- **Work:** implement to spec. **Server Components by default**; `"use client"`
+  only for interactivity/motion. Tokens drive Tailwind — **no magic numbers**.
+  Every motion effect ships a `prefers-reduced-motion` fallback. Reuse
+  primitives; keep it type-safe.
 - **Self-check (must pass before QA):**
   ```bash
   npm run typecheck   # tsc --noEmit
   npm run lint
   npm run build
   ```
-- **Visual check:** run the app and confirm the change with **`/run`**; for
-  behavioral fixes confirm with **`/verify`**.
-- **Output:** built routes on the working branch, green self-check.
+- **Confirm behavior:** `/run` to see it live; `/verify` for behavioral fixes;
+  `/simplify` to remove duplication before handoff.
+- **Output:** built routes on a feature branch with a green self-check.
 
 ### QA — Audit against budgets
 - **Input:** built branch.
-- **Work:** independent audit against the quality budgets:
-
-  | Metric | Target (mobile) |
-  |--------|-----------------|
-  | Lighthouse Performance | ≥ 95 |
-  | LCP | < 2.5s |
-  | CLS | < 0.1 |
-  | INP | < 200ms |
-  | Accessibility | WCAG 2.2 AA, axe 0 serious/critical |
-
+- **Work:** independent audit against **Premium Quality Standards** (§2).
   ```bash
-  npm run build && npm run lhci   # Lighthouse CI against budgets
+  npm run build && npm run lhci   # Lighthouse CI vs budgets (mobile)
   ```
-  Then run **`/code-review`** for correctness/quality and **`/security-review`**
-  for the diff.
-- **Output:** a **PASS/FAIL** report with specific findings.
-- **Decision point:** PASS → Release. FAIL → Revision loop.
+  Then `/code-review` (correctness/quality) and `/security-review` (the diff).
+- **Output:** **PASS/FAIL** report with specific findings.
+- **Gate:** PASS → Pre-Release review. FAIL → Revision loop.
 
-### Revision loop — Fix → Re-audit (cap: 3)
-- **Input:** FAIL findings.
-- **Work:** apply the smallest fix that addresses the finding; use **`/simplify`**
-  to clean up reuse/efficiency without changing behavior. Re-run the
-  Engineering self-check, then re-run QA.
-- **Iteration cap:** **3 fix→audit cycles**. If still FAIL after the 3rd →
-  **escalate to the human** (see §3). Do not loop a 4th time silently.
-- **Output:** PASS report, or an escalation note.
+### REVISION LOOP — Fix → Re-audit  *(cap: 3)*
+- Apply the **smallest** fix per finding; `/simplify` for cleanup; re-run the
+  Build self-check, then re-run QA.
+- **Iteration cap: 3 fix→audit cycles.** Still FAIL after the 3rd → **escalate**
+  (§3). Never loop a 4th time silently.
 
-### Release — Deploy + final gate
-- **Input:** PASS report.
-- **Work:** commit, push the branch, open the preview deploy on Vercel, verify
-  the live preview renders all routes.
-- **Decision point:** **production promotion is human-gated.** Claude prepares
-  and deploys *previews* autonomously; promoting to production (or touching
-  domains/secrets) requires explicit human approval.
-- **Output:** live preview URL + (on approval) production deploy.
+### RELEASE — Deploy + final gate
+
+#### ▶ Pre-Release Specialist Review (mandatory, blocking)
+| Lens | Reviews for | Tooling |
+|------|-------------|---------|
+| **Senior Frontend Architect** | Code quality, reuse, type-safety, component boundaries, no dead code | `/code-review` |
+| **Accessibility Auditor** | WCAG 2.2 AA, semantics, focus order, contrast, reduced-motion | axe + manual |
+| **Security Auditor** | Secrets, headers, input handling, dependency risk | `/security-review` |
+| **Lighthouse Performance Auditor** | Perf ≥ 95, LCP/CLS/INP budgets, bundle/image/font cost | `npm run lhci` |
+
+- **Work (after all four PASS):** commit → push feature branch → Vercel
+  **preview** deploy → verify the live preview renders all routes.
+- **Gate:** **production promotion is human-approved** (see §4). Claude ships
+  previews autonomously; it never self-promotes to production.
+
+---
+
+## 2. Premium Quality Standards (every site)
+
+**Performance (mobile):**
+- Lighthouse Performance ≥ 95 · LCP < 2.5s · CLS < 0.1 · INP < 200ms
+
+**Accessibility:**
+- WCAG 2.2 AA · axe 0 serious/critical · visible focus · full keyboard path
+
+**SEO:**
+- Metadata complete (title/description per route) · OpenGraph + Twitter cards
+  complete · Structured Data (JSON-LD) complete · semantic headings · sitemap +
+  robots
+
+**Code:**
+- Type-safe (no unjustified `any`) · reusable primitives · **no magic numbers** ·
+  token-driven · Server Components by default
+
+**Motion:**
+- `prefers-reduced-motion` fallback on every effect · GPU-friendly (transform/
+  opacity only) · no animation without a purpose · no layout-shifting motion
+
+These are **gates, not aspirations.** A miss is a QA FAIL.
+
+---
 
 ## 3. Escalation Rules
 
 Stop and ask the human when:
-- **Iteration cap hit** — 3 fix→audit cycles done, QA still FAIL.
-- **Ambiguous brief** — a decision changes the outcome and has no safe default
-  (brand voice, target audience, scope boundary).
-- **Aesthetic deadlock** — two directions are equally valid and taste decides.
-- **Production / domain / secrets** — any production promotion, DNS, or env
-  secret. Never self-approve these.
-- **Repeated identical failure** — the same error returns unchanged after a fix;
-  the root cause is likely outside the current scope.
+- **Iteration cap hit** — 3 fix→audit cycles, QA still FAIL.
+- **Ambiguous brief / strategy** — a decision changes the outcome with no safe
+  default (ICP, offer, positioning, primary objective).
+- **Aesthetic or strategic deadlock** — two valid directions; taste/business
+  judgment decides.
+- **Production / domain / secrets / billing** — never self-approve (§4).
+- **Repeated identical failure** — same error returns unchanged after a fix;
+  root cause is likely out of current scope.
 
-Escalation = a short note: what failed, what was tried, the options, a
-recommendation. Then wait.
+Escalation format: *what failed → what was tried → options → recommendation →
+wait.*
 
-## 4. Handoff Rules
+---
 
-**Design → Engineering** passes:
-- Final `DESIGN_SPEC.md`, token values, layout grid, and the motion spec
-  (timings/easing + reduced-motion behavior). If it isn't in the spec,
-  Engineering doesn't invent it — it asks.
+## 4. GitHub & Vercel Workflow
 
-**Engineering → QA** passes:
-- The built branch **with a green self-check** (`typecheck`, `lint`, `build`
-  all passing) and a one-line summary of what changed. A branch that fails its
-  own self-check is not handed off.
+**Development flow:**
+```
+Feature branch → Specialist review → Commit → Push → Preview deploy
+```
+**Release flow:**
+```
+Preview verification → Human approval → Production deployment
+```
 
-**QA → Release** passes:
-- A **PASS** report: Lighthouse meets budgets, `/code-review` and
-  `/security-review` clean (or findings explicitly waived by the human), and a
-  verified list of routes. No PASS report → no Release.
+**Permissions matrix:**
 
-## 5. Self-Improvement Loop
+| Action | Claude | Requires human |
+|--------|:------:|:--------------:|
+| Create feature branch | ✅ | |
+| Commit & push | ✅ | |
+| Create preview deployment | ✅ | |
+| Open / update PR | ✅ | |
+| **Approve production deploy** | ❌ | ✅ |
+| **Modify DNS / domains** | ❌ | ✅ |
+| **Modify secrets / env** | ❌ | ✅ |
+| **Modify billing** | ❌ | ✅ |
 
-The workflow learns from its own failures:
-- **Recurring QA failures** (same metric/finding twice across builds) → the fix
-  is promoted into `CLAUDE.md` as a standing convention so it's prevented, not
-  re-caught.
-- **Token thrash** (Engineering repeatedly overrides spec values) signals the
-  token system is wrong → trigger a **mid-project redesign**: pause Engineering,
-  return to Design, correct the tokens/spec, then resume.
-- **Budget misses that aren't code bugs** (a perf target unrealistic for the
-  motion brief) → renegotiate the budget with the human and record the new
-  target. Budgets are gates, not folklore.
+Git hygiene: develop on the designated branch; `git push -u origin <branch>`;
+retry transient pushes with backoff (2/4/8/16s); never force-push shared
+branches; never open a PR or promote to production without explicit approval.
 
-A **mid-project redesign** is triggered when: the spec contradicts itself, the
-audit fails on *design* grounds (not implementation), or the human's review
-rejects the visual direction. It always routes back through Design — never
-patched ad hoc in Engineering.
+---
 
-## 6. Quick Reference Table
+## 5. Failure Handling
+
+On **build / deploy / QA / audit failure**, Claude runs a fixed protocol:
+```
+Diagnose → Propose fix → Implement fix → Re-test
+```
+- Read the actual error/logs first; never guess-patch.
+- One root-cause fix per cycle; re-run the relevant gate.
+- **Maximum 3 repair cycles.** After the 3rd unresolved failure → **escalate**
+  with diagnosis and options. Report failures faithfully — never mark a failing
+  gate as passed.
+
+---
+
+## 6. Continuous Improvement (self-learning)
+
+The system learns from recurring mistakes:
+- **Same issue twice** (any stage) → **update `CLAUDE.md`** with a standing
+  convention so it's *prevented*, not re-caught.
+- **New recurring pattern** → codify it as a project convention / lint rule /
+  reusable primitive.
+- **Token thrash** (Build repeatedly overrides spec values) → the token system
+  is wrong → trigger a **mid-project redesign**: pause Build, return to Design,
+  fix tokens, resume.
+- **Unrealistic budget** (a target the motion brief can't meet) → renegotiate
+  with the human and record the new target.
+
+A **mid-project redesign** routes back through Design (never ad-hoc patched in
+Build) when: the spec self-contradicts, QA fails on *design* grounds, or human
+review rejects the direction.
+
+---
+
+## 7. Handoff Rules
+
+- **Strategy → Design:** approved `STRATEGY.md` (ICP, positioning, offer,
+  conversion goals, content hierarchy). Design serves strategy; it does not
+  override it.
+- **Design → Architecture:** final `DESIGN_SPEC.md` + tokens + motion spec +
+  passed Pre-Engineering specialist review. If it isn't specified, Architecture
+  asks — it doesn't invent.
+- **Architecture → Build:** approved route/component/data/rendering plan.
+- **Build → QA:** feature branch with a **green self-check** + change summary.
+  A branch failing its own self-check is not handed off.
+- **QA → Release:** **PASS** report + clean `/code-review` & `/security-review`
+  + four Pre-Release lenses PASS + verified route list. No PASS → no Release.
+
+---
+
+## 8. Quick Reference Table
 
 | Phase | Owner | Success Criteria | If FAIL |
 |-------|-------|------------------|---------|
-| STEP 0 — Intake | Claude + Human | Scoped task list, one key ambiguity resolved | Ask human once, then proceed |
-| Design | Claude (Human signs taste) | `DESIGN_SPEC.md` + tokens complete | Present options to human |
-| Engineering | Claude | `typecheck` + `lint` + `build` green; `/run` confirms | Fix in place, re-self-check |
-| QA | Claude (read-only) | Lighthouse ≥ budgets; `/code-review` + `/security-review` clean | Enter Revision loop |
-| Revision (×3 max) | Claude | FAIL findings resolved; `/simplify` applied | After 3 cycles → escalate |
-| Release | Claude (preview) / Human (prod) | Preview verified; human approves prod | Hold; do not self-promote |
+| Research / Intake | Claude + Human | Scoped tasks; key ambiguity resolved | Ask human once, then proceed |
+| Strategy | Claude draft → Human sign-off | `STRATEGY.md` complete & approved | Block; resolve with human |
+| Design | Claude (Human owns taste) | `DESIGN_SPEC.md` + tokens; 4 pre-eng lenses PASS | Return to Strategy/Design |
+| Architecture | Claude | Routes/components/data/rendering planned | Re-plan before building |
+| Build | Claude | `typecheck`+`lint`+`build` green; `/run` confirms | Fix in place, re-self-check |
+| QA | Claude (read-only) | Lighthouse ≥ budgets; reviews clean | Revision loop |
+| Revision (×3 max) | Claude | Findings resolved; `/simplify` applied | After 3 → escalate |
+| Release | Claude (preview) / Human (prod) | 4 pre-release lenses PASS; preview verified; human approves prod | Hold; never self-promote |
